@@ -1,0 +1,438 @@
+/* ==========================================================================
+   1. БАЗОВЫЕ НАСТРОЙКИ И ПЕРЕМЕННЫЕ
+   ========================================================================== */
+   :root {
+    --primary-dark: #2d1b10;    /* Глубокий кофейный */
+    --accent-brown: #8d6e63;    /* Цвет молочного шоколада */
+    --light-accent: #d7ccc8;    /* Нежная пенка капучино */
+    --bg-cream: #fcf9f2;        /* Основной уютный фон */
+    --text-dark: #3e2723;       /* Читаемый темно-коричневый текст */
+    --text-muted: #6d4c41;      /* Приглушенный текст */
+    --white: #ffffff;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Защита от горизонтального скролла на мобильных */
+}
+
+/* Общие заголовки для секций */
+section h2 {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 38px); /* Текст плавно уменьшается на телефонах */
+    color: var(--primary-dark);
+    margin-bottom: 50px;
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-brown);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   2. ШАПКА И НАВИГАЦИЯ (АДАПТИВНАЯ)
+   ========================================================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); /* Трендовый эффект размытия заднего плана */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition-smooth);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--primary-dark);
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+    padding: 5px 0;
+    transition: var(--transition-smooth);
+}
+
+/* Красивая линия подчеркивания при наведении */
+.nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-brown);
+    transition: var(--transition-smooth);
+}
+
+.nav a:hover {
+    color: var(--accent-brown);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Чекбокс-хак для мобильного меню без JavaScript */
+.menu-toggle {
+    display: none;
+}
+
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger-btn span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-dark);
+    border-radius: 2px;
+    transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   3. СЕКЦИЯ HERO (ПЕРВЫЙ ЭКРАН)
+   ========================================================================== */
+.hero {
+    height: clamp(500px, 85vh, 900px); /* Ограничение высоты, чтобы не ломалось на ультрашироких мониторах */
+    background: linear-gradient(rgba(45, 27, 16, 0.55), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed; /* Эффект параллакса (fixed) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 24px;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: clamp(32px, 6vw, 56px); /* Идеально масштабируемый шрифт */
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: clamp(16px, 2.5vw, 22px);
+    margin-bottom: 40px;
+    color: #f5f5f5;
+    font-weight: 300;
+}
+
+/* Прокачанная кнопка */
+.btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: var(--light-accent);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Делает текст строгим и стильным */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.btn:hover {
+    background-color: var(--white);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   4. ПРЕИМУЩЕСТВА (О НАС)
+   ========================================================================== */
+.about {
+    padding: 100px 8%;
+    background-color: var(--white);
+}
+
+.features {
+    display: grid;
+    /* Удобная сетка: карточки выстроятся сами в зависимости от ширины экрана */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--bg-cream);
+    padding: 45px 35px;
+    border-radius: 16px;
+    border: 1px solid rgba(141, 110, 99, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    background-color: var(--white);
+    box-shadow: 0 15px 35px rgba(62, 39, 35, 0.08);
+    border-color: var(--light-accent);
+}
+
+.feature-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   5. НОВОЕ: СЕКЦИЯ МЕНЮ
+   ========================================================================== */
+.menu {
+    padding: 100px 8%;
+    background-color: var(--bg-cream);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu-item {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    border-left: 4px solid var(--accent-brown); /* Стильный акцент слева */
+    transition: var(--transition-smooth);
+}
+
+.menu-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.menu-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.menu-item-info h3 {
+    font-size: 18px;
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.price {
+    font-weight: 800;
+    color: var(--accent-brown);
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.description {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   6. КОНТАКТЫ И ФОРМА
+   ========================================================================== */
+.contact {
+    padding: 100px 8%;
+    background-color: var(--white);
+}
+
+.contact p {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 45px;
+    font-size: 16px;
+}
+
+.contact-form {
+    max-width: 550px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    position: relative;
+    width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid #d7ccc8;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent-brown);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(141, 110, 99, 0.15);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   7. ПОДВАЛ (FOOTER)
+   ========================================================================== */
+.footer {
+    text-align: center;
+    padding: 35px 20px;
+    background-color: var(--primary-dark);
+    color: var(--light-accent);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   8. МОЩНЫЙ АДАПТИВ (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Планшеты и мелкие мониторы */
+@media (max-width: 1024px) {
+    .header {
+        padding: 20px 5%;
+    }
+    section {
+        padding: 80px 5%;
+    }
+}
+
+/* Мобильные устройства (Смартфоны) */
+@media (max-width: 768px) {
+    /* Включаем мобильное бургер-меню */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    .nav {
+        position: fixed;
+        top: 75px; /* Высота шапки */
+        right: -100%; /* Меню скрыто за экраном справа */
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 75px);
+        background-color: var(--white);
+        box-shadow: -10px 10px 30px rgba(0,0,0,0.05);
+        padding: 40px;
+        transition: var(--transition-smooth);
+    }
+
+    .nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .nav a {
+        font-size: 18px;
+        width: 100%;
+        display: block;
+    }
+
+    /* Логика открытия меню при клике на бургер (связка HTML + CSS) */
+    /* Инструкция: добавьте <input type="checkbox" id="menu-toggle" class="menu-toggle"> перед <header> в HTML */
+    .menu-toggle:checked ~ .header .nav {
+        right: 0; /* Выдвигаем меню */
+    }
+
+    /* Анимация превращения бургера в крестик */
+    .menu-toggle:checked ~ .header .hamburger-btn span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    .menu-toggle:checked ~ .header .hamburger-btn span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle:checked ~ .header .hamburger-btn span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -7px);
+    }
+
+    /* Коррекция отступов для мобильных экранов */
+    .features, .menu-grid {
+        grid-template-columns: 1fr; /* В один столбец на телефонах */
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 30px 20px;
+    }
+}

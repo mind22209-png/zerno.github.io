@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кофейня "Зерно" | Лучший кофе в городе</title>
+  <link rel="stylesheet" href="styles/mycss.css">
+</head>
+<body>
+
+  <!-- Чекбокс для работы мобильного меню -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <header class="header">
+    <div class="logo">ЗЕРНО</div>
+    
+    <!-- Кнопка бургера для мобильных -->
+    <label for="menu-toggle" class="hamburger-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="nav">
+      <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#menu">Меню</a></li>
+        <li><a href="#contact">Свяжитесь с нами</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Просыпайся с идеальным кофе</h1>
+      <p>Свежая обжарка, уютная атмосфера и десерты ручной работы, которые сделают твой день.</p>
+      <a href="#menu" class="btn">Смотреть меню</a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>Почему выбирают нас?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>100% Арабика</h3>
+        <p>Мы привозим только лучшие зерна с лучших плантаций мира и обжариваем их сами.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Своя пекарня</h3>
+        <p>Теплые, хрустящие круассаны и авторские торты каждое утро.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Быстрый Wi-Fi</h3>
+        <p>Идеальное место для фрилансеров. Работай и наслаждайся атмосферой.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu">
+    <h2>Наше Меню</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h3>Эспрессо</h3>
+          <span class="price">140 ₽</span>
+        </div>
+        <p class="description">Классический крепкий кофе из зерен стопроцентной свежеобжаренной арабики.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h3>Капучино</h3>
+          <span class="price">210 ₽</span>
+        </div>
+        <p class="description">Классический эспрессо с добавлением нежного вспененного молока.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h3>Флэт Уайт</h3>
+          <span class="price">240 ₽</span>
+        </div>
+        <p class="description">Насыщенный вкус двойного эспрессо с бархатистой молочной текстурой.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h3>Круассан</h3>
+          <span class="price">160 ₽</span>
+        </div>
+        <p class="description">Свежая, хрустящая выпечка из собственной пекарни на сливочном масле.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Свяжитесь с нами</h2>
+    <p>Оставьте заявку на бронь столика или задайте вопрос.</p>
+
+    <form action="https://formsubmit.co/mind22209@gmail.com" method="POST" class="contact-form">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://ваш-сайт.com/thanks.html">
+      
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Ваш Email" required>
+      </div>
+      <div class="form-group">
+        <textarea name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Отправить сообщение</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Кофейня "Зерно". Все права защищены.</p>
+  </footer>
+
+</body>
+</html>
