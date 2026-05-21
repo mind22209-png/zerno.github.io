@@ -379,6 +379,16 @@ section h2::after {
 
 /* Мобильные устройства (Смартфоны) */
 @media (max-width: 768px) {
+    
+    /* === ИСПРАВЛЕНИЕ ФОНА ДЛЯ ТЕЛЕФОНОВ === */
+    .hero {
+        /* Отключаем кривой параллакс на мобильных */
+        background-attachment: scroll; 
+        /* Выравниваем картинку по центру */
+        background-position: center;
+    }
+    /* ====================================== */
+
     /* Включаем мобильное бургер-меню */
     .hamburger-btn {
         display: flex;
@@ -410,7 +420,6 @@ section h2::after {
     }
 
     /* Логика открытия меню при клике на бургер (связка HTML + CSS) */
-    /* Инструкция: добавьте <input type="checkbox" id="menu-toggle" class="menu-toggle"> перед <header> в HTML */
     .menu-toggle:checked ~ .header .nav {
         right: 0; /* Выдвигаем меню */
     }
@@ -435,4 +444,12 @@ section h2::after {
     .feature-card {
         padding: 30px 20px;
     }
+}
+
+.nav img {
+    width: 45px;
+}
+
+.logo img {
+    width: 45px;
 }
