@@ -1,120 +1,229 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кофейня "Зерно" | Лучший кофе в городе</title>
-  <link rel="stylesheet" href="styles/mycss.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ЗЕРНО — Премиальная кофейня</title>
+
+    <meta name="description" content="Премиальная кофейня с авторским кофе и свежей выпечкой">
+
+    <link rel="icon" href="img/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/mycss.css">
 </head>
+
 <body>
 
-  <!-- Чекбокс для работы мобильного меню -->
-  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
 
-  <header class="header">
-    <div class="logo">ЗЕРНО</div>
-    
-    <!-- Кнопка бургера для мобильных -->
-    <label for="menu-toggle" class="hamburger-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
+    <header class="header">
 
-    <nav class="nav">
-      <ul>
-        <li><a href="#home">Главная</a></li>
-        <li><a href="#about">О нас</a></li>
-        <li><a href="#menu">Меню</a></li>
-        <li><a href="#contact">Свяжитесь с нами</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Просыпайся с идеальным кофе</h1>
-      <p>Свежая обжарка, уютная атмосфера и десерты ручной работы, которые сделают твой день.</p>
-      <a href="#menu" class="btn">Смотреть меню</a>
-    </div>
-  </section>
-
-  <section id="about" class="about">
-    <h2>Почему выбирают нас?</h2>
-    <div class="features">
-      <div class="feature-card">
-        <h3>100% Арабика</h3>
-        <p>Мы привозим только лучшие зерна с лучших плантаций мира и обжариваем их сами.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Своя пекарня</h3>
-        <p>Теплые, хрустящие круассаны и авторские торты каждое утро.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Быстрый Wi-Fi</h3>
-        <p>Идеальное место для фрилансеров. Работай и наслаждайся атмосферой.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="menu" class="menu">
-    <h2>Наше Меню</h2>
-    <div class="menu-grid">
-      <div class="menu-item">
-        <div class="menu-item-info">
-          <h3>Эспрессо</h3>
-          <span class="price">140 ₽</span>
+        <div class="logo">
+            ☕ ЗЕРНО
         </div>
-        <p class="description">Классический крепкий кофе из зерен стопроцентной свежеобжаренной арабики.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-info">
-          <h3>Капучино</h3>
-          <span class="price">210 ₽</span>
+
+        <label for="menu-toggle" class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#menu">Меню</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                Лучшая кофейня 2026
+            </div>
+
+            <h1>
+                Искусство настоящего кофе
+            </h1>
+
+            <p>
+                Свежая обжарка, авторские десерты и атмосфера,
+                в которую хочется возвращаться каждый день.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#menu" class="btn">
+                    Смотреть меню
+                </a>
+
+                <a href="#contact" class="btn btn-outline">
+                    Забронировать
+                </a>
+            </div>
+
         </div>
-        <p class="description">Классический эспрессо с добавлением нежного вспененного молока.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-info">
-          <h3>Флэт Уайт</h3>
-          <span class="price">240 ₽</span>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section class="about" id="about">
+
+        <h2>Почему выбирают нас</h2>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="icon">☕</div>
+                <h3>Премиальные зерна</h3>
+                <p>
+                    Используем только свежую арабику
+                    высшего качества.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🥐</div>
+                <h3>Своя пекарня</h3>
+                <p>
+                    Выпечка и десерты готовятся
+                    каждое утро.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">💻</div>
+                <h3>Уютная атмосфера</h3>
+                <p>
+                    Идеальное место для отдыха,
+                    работы и встреч.
+                </p>
+            </div>
+
         </div>
-        <p class="description">Насыщенный вкус двойного эспрессо с бархатистой молочной текстурой.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-info">
-          <h3>Круассан</h3>
-          <span class="price">160 ₽</span>
+
+    </section>
+
+    <!-- MENU -->
+
+    <section class="menu" id="menu">
+
+        <h2>Популярные позиции</h2>
+
+        <div class="menu-grid">
+
+            <div class="menu-item">
+                <img src="img/espresso.jpg" alt="Эспрессо">
+
+                <div class="menu-content">
+                    <div class="menu-top">
+                        <h3>Эспрессо</h3>
+                        <span>140 ₽</span>
+                    </div>
+
+                    <p>
+                        Классический насыщенный вкус
+                        свежеобжаренной арабики.
+                    </p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="img/cappuccino.jpg" alt="Капучино">
+
+                <div class="menu-content">
+                    <div class="menu-top">
+                        <h3>Капучино</h3>
+                        <span>210 ₽</span>
+                    </div>
+
+                    <p>
+                        Нежная молочная текстура
+                        и идеальный баланс вкуса.
+                    </p>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="img/croissant.jpg" alt="Круассан">
+
+                <div class="menu-content">
+                    <div class="menu-top">
+                        <h3>Круассан</h3>
+                        <span>160 ₽</span>
+                    </div>
+
+                    <p>
+                        Свежая выпечка
+                        на сливочном масле.
+                    </p>
+                </div>
+            </div>
+
         </div>
-        <p class="description">Свежая, хрустящая выпечка из собственной пекарни на сливочном масле.</p>
-      </div>
-    </div>
-  </section>
 
-  <section id="contact" class="contact">
-    <h2>Свяжитесь с нами</h2>
-    <p>Оставьте заявку на бронь столика или задайте вопрос.</p>
+    </section>
 
-    <form action="https://formsubmit.co/mind22209@gmail.com" method="POST" class="contact-form">
-      <input type="hidden" name="_captcha" value="false">
-      
-      <div class="form-group">
-        <input type="text" name="name" placeholder="Ваше имя" required>
-      </div>
-      <div class="form-group">
-        <input type="email" name="email" placeholder="Ваш Email" required>
-      </div>
-      <div class="form-group">
-        <textarea name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
-      </div>
+    <!-- CONTACT -->
 
-      <button type="submit" class="btn">Отправить сообщение</button>
-    </form>
-  </section>
+    <section class="contact" id="contact">
 
-  <footer class="footer">
-    <p>&copy; 2026 Кофейня "Зерно". Все права защищены.</p>
-  </footer>
+        <h2>Свяжитесь с нами</h2>
+
+        <form action="https://formsubmit.co/mind22209@gmail.com" method="POST" class="contact-form">
+
+            <input type="hidden" name="_captcha" value="false">
+
+            <input type="text" name="name" placeholder="Ваше имя" required>
+
+            <input type="email" name="email" placeholder="Ваш Email" required>
+
+            <textarea name="message" placeholder="Ваше сообщение"></textarea>
+
+            <button type="submit" class="btn">
+                Отправить
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h3>☕ ЗЕРНО</h3>
+
+        <p>
+            Премиальная кофейня для настоящих ценителей кофе.
+        </p>
+
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Telegram</a>
+            <a href="#">Facebook</a>
+        </div>
+
+    </footer>
 
 </body>
+
 </html>
