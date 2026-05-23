@@ -1,229 +1,223 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ЗЕРНО — Премиальная кофейня</title>
-
-    <meta name="description" content="Премиальная кофейня с авторским кофе и свежей выпечкой">
-
-    <link rel="icon" href="img/favicon.png">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="styles/mycss.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlossAuto - Premium Interior Detailing</title>
+  <link rel="stylesheet" href="mycss.css">
 </head>
 
 <body>
 
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-
+  <section class="hero">
     <header class="header">
-
-        <div class="logo">
-            ☕ ЗЕРНО
-        </div>
-
-        <label for="menu-toggle" class="hamburger-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-
-        <nav class="nav">
-            <ul>
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#menu">Меню</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
-        </nav>
-
+      <div class="logo">GlossAuto</div>
     </header>
 
-    <!-- HERO -->
+    <div class="hero-content">
+      <h1>Restore Your Car's Showroom Look in 1 Day</h1>
+      <p>Professional interior detailing in Izmail with a satisfaction guarantee and a complimentary protective coating.</p>
+      <a href="#contact-section" class="btn-primary" id="scroll-btn">Book a Clean</a>
+    </div>
+  </section>
 
-    <section class="hero" id="home">
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-
-            <div class="hero-badge">
-                Лучшая кофейня 2026
-            </div>
-
-            <h1>
-                Искусство настоящего кофе
-            </h1>
-
-            <p>
-                Свежая обжарка, авторские десерты и атмосфера,
-                в которую хочется возвращаться каждый день.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#menu" class="btn">
-                    Смотреть меню
-                </a>
-
-                <a href="#contact" class="btn btn-outline">
-                    Забронировать
-                </a>
-            </div>
-
+  <section class="gallery-section">
+    <h2>Our Work Speak for Itself</h2>
+    <p class="section-subtitle">Move the slider to see the transformation</p>
+    <div class="ba-slider-container">
+      <div class="ba-slider">
+        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="Before detailing" class="image-before">
+        <div class="image-after-wrap">
+          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80" alt="After detailing" class="image-after">
         </div>
-
-    </section>
-
-    <!-- ABOUT -->
-
-    <section class="about" id="about">
-
-        <h2>Почему выбирают нас</h2>
-
-        <div class="features">
-
-            <div class="feature-card">
-                <div class="icon">☕</div>
-                <h3>Премиальные зерна</h3>
-                <p>
-                    Используем только свежую арабику
-                    высшего качества.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🥐</div>
-                <h3>Своя пекарня</h3>
-                <p>
-                    Выпечка и десерты готовятся
-                    каждое утро.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">💻</div>
-                <h3>Уютная атмосфера</h3>
-                <p>
-                    Идеальное место для отдыха,
-                    работы и встреч.
-                </p>
-            </div>
-
+        <div class="slider-handle">
+          <span class="handle-line"></span>
+          <span class="handle-button">↔</span>
+          <span class="handle-line"></span>
         </div>
+        <input type="range" min="0" max="100" value="50" class="slider-input">
+      </div>
+    </div>
+  </section>
 
-    </section>
-
-    <!-- MENU -->
-
-    <section class="menu" id="menu">
-
-        <h2>Популярные позиции</h2>
-
-        <div class="menu-grid">
-
-            <div class="menu-item">
-                <img src="img/espresso.jpg" alt="Эспрессо">
-
-                <div class="menu-content">
-                    <div class="menu-top">
-                        <h3>Эспрессо</h3>
-                        <span>140 ₽</span>
-                    </div>
-
-                    <p>
-                        Классический насыщенный вкус
-                        свежеобжаренной арабики.
-                    </p>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <img src="img/cappuccino.jpg" alt="Капучино">
-
-                <div class="menu-content">
-                    <div class="menu-top">
-                        <h3>Капучино</h3>
-                        <span>210 ₽</span>
-                    </div>
-
-                    <p>
-                        Нежная молочная текстура
-                        и идеальный баланс вкуса.
-                    </p>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <img src="img/croissant.jpg" alt="Круассан">
-
-                <div class="menu-content">
-                    <div class="menu-top">
-                        <h3>Круассан</h3>
-                        <span>160 ₽</span>
-                    </div>
-
-                    <p>
-                        Свежая выпечка
-                        на сливочном масле.
-                    </p>
-                </div>
-            </div>
-
+  <section class="calculator-section">
+    <h2>Estimate Your Service Cost</h2>
+    <div class="calc-container">
+      <div class="calc-block">
+        <h3>1. Select Body Type</h3>
+        <div class="calc-options" id="body-types">
+          <div class="calc-card active" data-price="1500">Sedan / Hatchback</div>
+          <div class="calc-card" data-price="2000">SUV / Crossover</div>
+          <div class="calc-card" data-price="2500">Minivan / Large SUV</div>
         </div>
+      </div>
 
-    </section>
-
-    <!-- CONTACT -->
-
-    <section class="contact" id="contact">
-
-        <h2>Свяжитесь с нами</h2>
-
-        <form action="https://formsubmit.co/mind22209@gmail.com" method="POST" class="contact-form">
-
-            <input type="hidden" name="_captcha" value="false">
-
-            <input type="text" name="name" placeholder="Ваше имя" required>
-
-            <input type="email" name="email" placeholder="Ваш Email" required>
-
-            <textarea name="message" placeholder="Ваше сообщение"></textarea>
-
-            <button type="submit" class="btn">
-                Отправить
-            </button>
-
-        </form>
-
-    </section>
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <h3>☕ ЗЕРНО</h3>
-
-        <p>
-            Премиальная кофейня для настоящих ценителей кофе.
-        </p>
-
-        <div class="footer-links">
-            <a href="#">Instagram</a>
-            <a href="#">Telegram</a>
-            <a href="#">Facebook</a>
+      <div class="calc-block">
+        <h3>2. Extra Services (Optional)</h3>
+        <div class="calc-options">
+          <div class="calc-checkbox" data-price="500">
+            <input type="checkbox" id="srv-leather">
+            <label for="srv-leather">Leather Conditioning (+500 UAH)</label>
+          </div>
+          <div class="calc-checkbox" data-price="400">
+            <input type="checkbox" id="srv-ozone">
+            <label for="srv-ozone">Ozone Odor Removal (+400 UAH)</label>
+          </div>
+          <div class="calc-checkbox" data-price="600">
+            <input type="checkbox" id="srv-engine">
+            <label for="srv-engine">Engine Bay Detailing (+600 UAH)</label>
+          </div>
         </div>
+      </div>
 
-    </footer>
+      <div class="calc-total">
+        <p>Estimated Total: <span id="total-price">1500</span> UAH</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="reviews-section">
+    <h2>What Our Customers Say</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The interior looks brand new! They managed to remove a coffee stain that had been there for a year. Highly recommended!"</p>
+        <span class="review-author">- Alex M. (BMW X5)</span>
+      </div>
+      <div class="review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Excellent service in Izmail. Fast, professional, and the free tyre dressing was a nice bonus. Will come back."</p>
+        <span class="review-author">- Elena K. (Audi A4)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question">How long does the interior detailing take?</button>
+        <div class="faq-answer">
+          <p>Typically, it takes between 6 to 12 hours depending on the vehicle size and condition. We usually ask to leave the car in the morning and it's ready by evening.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you dry the interior after wet cleaning?</button>
+        <div class="faq-answer">
+          <p>Yes, absolutely. We use professional auto-dryers. You will receive your car 100% dry and ready to drive, with zero moisture left inside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact-section" class="contact">
+    <div class="contact-container">
+      <h2>Apply Now and Get Free <span>Tyre Dressing</span></h2>
+
+      <form class="lead-form" action="https://formspree.io/f/mojbleoq" method="POST">
+        <div class="input-group">
+          <input type="text" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="input-group">
+          <input type="tel" name="phone" placeholder="Phone Number/Email" required>
+        </div>
+        <div class="input-group">
+          <input type="text" name="car" placeholder="Car Make & Model" id="form-car" required>
+        </div>
+        <input type="hidden" name="estimated_price" id="form-total-price" value="1500 UAH">
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
+
+      <div class="contact-info">
+        <p>📍 <strong>Address:</strong> Izmail, [Street, Building]</p>
+        <p>📞 <strong>Phone:</strong> <a href="tel:+380683343429">+38 (068) 334-34-29</a></p>
+
+        <div class="social-links">
+          <a href="#" target="_blank" class="social-icon">Instagram</a>
+          <a href="#" target="_blank" class="social-icon">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Smooth scroll to the form
+    document.getElementById('scroll-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('contact-section').scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+
+    // Before/After Slider Functionality
+    const sliderInput = document.querySelector('.slider-input');
+    const imageAfterWrap = document.querySelector('.image-after-wrap');
+    const sliderHandle = document.querySelector('.slider-handle');
+
+    if(sliderInput) {
+      sliderInput.addEventListener('input', (e) => {
+        const value = e.target.value;
+        imageAfterWrap.style.width = `${value}%`;
+        sliderHandle.style.left = `${value}%`;
+      });
+    }
+
+    // Calculator Functionality
+    const bodyCards = document.querySelectorAll('#body-types .calc-card');
+    const extraCheckboxes = document.querySelectorAll('.calc-checkbox input');
+    const totalPriceEl = document.getElementById('total-price');
+    const formPriceInput = document.getElementById('form-total-price');
+
+    function calculateTotal() {
+      let total = 0;
+      
+      // Get base price from active body type
+      const activeBody = document.querySelector('#body-types .calc-card.active');
+      if (activeBody) {
+        total += parseInt(activeBody.getAttribute('data-price'));
+      }
+
+      // Add extra services
+      extraCheckboxes.forEach(cb => {
+        if (cb.checked) {
+          total += parseInt(cb.parentElement.getAttribute('data-price'));
+        }
+      });
+
+      // Update UI & Hidden form input
+      totalPriceEl.textContent = total;
+      if(formPriceInput) formPriceInput.value = total + ' UAH';
+    }
+
+    bodyCards.forEach(card => {
+      card.addEventListener('click', () => {
+        bodyCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        calculateTotal();
+      });
+    });
+
+    extraCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        if(cb.checked) {
+          cb.parentElement.classList.add('active');
+        } else {
+          cb.parentElement.classList.remove('active');
+        }
+        calculateTotal();
+      });
+    });
+
+    // FAQ Accordion Functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 
 </html>
