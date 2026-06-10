@@ -1,225 +1,490 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
-
-  
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlossAuto - Premium Interior Detailing</title>
-  <link rel="stylesheet" href="mycss.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERO | Road Bike Custom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Unbounded:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Базовые переменные и сброс */
+        :root {
+            --accent: #FF2A2A;
+            --bg-main: #0D0D0D;
+            --bg-card: #1A1A1A;
+            --text-main: #FFFFFF;
+            --text-muted: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Unbounded', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Структура */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Главный экран (Hero) с фоном */
+        .hero {
+            padding: 180px 0 140px;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(13, 13, 13, 0.4) 0%, rgba(13, 13, 13, 0.9) 80%, var(--bg-main) 100%),
+                url('img/stocksnap-black-2561619.jpg') center 20% / cover no-repeat;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Блок разогрева (Преимущества) */
+        .features {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid #222;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Сетка конфигуратора */
+        .configurator-section {
+            padding: 60px 0 100px;
+        }
+
+        .configurator-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .configurator {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .configurator {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #333;
+        }
+
+        .panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* Элементы управления */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            background: #242424;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            appearance: none;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Интерактивный выбор цвета */
+        .color-picker-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #242424;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: none;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .color-code {
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* Итог и кнопка */
+        .total-box {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+
+        .price {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        button {
+            width: 100%;
+            padding: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 42, 42, 0.2);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
 
-  <section class="hero">
-    <header class="header">
-      <div class="logo">GlossAuto</div>
+    <header class="hero">
+        <div class="container">
+            <h1>Создай свой <span>Aero</span></h1>
+            <p>Мы не просто собираем велосипеды. Мы создаем идеальное оружие для твоих побед.</p>
+        </div>
     </header>
 
-    <div class="hero-content">
-      <h1>Restore Your Car's Showroom Look in 1 Day</h1>
-      <p>Professional interior detailing in Izmail with a satisfaction guarantee and a complimentary protective coating.</p>
-      <a href="#contact-section" class="btn-primary" id="scroll-btn">Book a Clean</a>
-    </div>
-  </section>
-
-  <section class="gallery-section">
-    <h2>Our Work Speak for Itself</h2>
-    <p class="section-subtitle">Move the slider to see the transformation</p>
-    <div class="ba-slider-container">
-      <div class="ba-slider">
-        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="Before detailing" class="image-before">
-        <div class="image-after-wrap">
-          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80" alt="After detailing" class="image-after">
+    <section class="features container">
+        <h2 class="features-title">Твое преимущество в пелотоне</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-wind" style="color: var(--accent);"></i></div>
+                <h3>Аэродинамика</h3>
+                <p>Полностью скрытая проводка, интеграция компонентов и идеальная посадка. Каждый ватт твоей мощности
+                    переходит в чистую скорость без потерь.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-palette" style="color: var(--accent);"></i></div>
+                <h3>Индивидуальность</h3>
+                <p>Забудь о заводских шаблонах. Твоя рама — твой холст. Мы подберем уникальный оттенок или реализуем
+                    сложный кастомный дизайн.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-weight-hanging" style="color: var(--accent);"></i></div>
+                <h3>Минимальный вес</h3>
+                <p>Топовые карбоновые компоненты, выверенные вилсеты и легчайшие группсеты. Этот байк будет буквально
+                    взлетать на градиентах.</p>
+            </div>
         </div>
-        <div class="slider-handle">
-          <span class="handle-line"></span>
-          <span class="handle-button">↔</span>
-          <span class="handle-line"></span>
+    </section>
+
+    <section class="configurator-section container">
+        <h2 class="configurator-title">Собери свой байк</h2>
+
+        <div class="configurator">
+            <div class="panel">
+                <h2>Комплектация</h2>
+
+                <div class="form-group">
+                    <label>Фреймсет (Рама + Вилка + Штырь)</label>
+                    <select id="frame" class="calc-item">
+                        <option value="15000" data-name="Карбон Aero (база)">Карбон Aero — 15 000 ₴</option>
+                        <option value="22000" data-name="Карбон Superlight">Карбон Superlight — 22 000 ₴</option>
+                        <option value="8000" data-name="Алюминий Premium">Алюминий Premium — 8 000 ₴</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Кастомный цвет рамы</label>
+                    <div class="color-picker-wrap">
+                        <input type="color" id="frame-color" value="#FF2A2A">
+                        <span class="color-code" id="color-hex">#FF2A2A</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Группсет (Трансмиссия и тормоза)</label>
+                    <select id="groupset" class="calc-item">
+                        <option value="18000" data-name="Shimano 105 (Механика)">Shimano 105 (Механика) — 18 000 ₴
+                        </option>
+                        <option value="35000" data-name="Shimano Ultegra Di2">Shimano Ultegra Di2 — 35 000 ₴</option>
+                        <option value="42000" data-name="SRAM Force eTap AXS">SRAM Force eTap AXS — 42 000 ₴</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Вилсет (Колеса)</label>
+                    <select id="wheels" class="calc-item">
+                        <option value="6000" data-name="Алюминий 30mm">Алюминий 30mm профиль — 6 000 ₴</option>
+                        <option value="18000" data-name="Карбон 50mm">Карбон 50mm профиль — 18 000 ₴</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Оформление</h2>
+
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" id="client-name" placeholder="Данил" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Telegram / Телефон</label>
+                    <input type="text" id="client-contact" placeholder="@username" required>
+                </div>
+
+                <div class="total-box">
+                    <label>Примерная стоимость:</label>
+                    <div class="price"><span id="total-price">0</span> ₴</div>
+
+                    <button id="submit-btn">Отправить заявку</button>
+                    <div id="status-msg" class="status"></div>
+                </div>
+            </div>
         </div>
-        <input type="range" min="0" max="100" value="50" class="slider-input">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="calculator-section">
-    <h2>Estimate Your Service Cost</h2>
-    <div class="calc-container">
-      <div class="calc-block">
-        <h3>1. Select Body Type</h3>
-        <div class="calc-options" id="body-types">
-          <div class="calc-card active" data-price="1500">Sedan / Hatchback</div>
-          <div class="calc-card" data-price="2000">SUV / Crossover</div>
-          <div class="calc-card" data-price="2500">Minivan / Large SUV</div>
-        </div>
-      </div>
+    <script>
+        // НАСТРОЙКИ TELEGRAM БОТА
+        const BOT_TOKEN = 'ТВОЙ_ТОКЕН_ОТ_BOTFATHER';
+        const CHAT_ID = 'ТВОЙ_CHAT_ID';
 
-      <div class="calc-block">
-        <h3>2. Extra Services (Optional)</h3>
-        <div class="calc-options">
-          <div class="calc-checkbox" data-price="500">
-            <input type="checkbox" id="srv-leather">
-            <label for="srv-leather">Leather Conditioning (+500 UAH)</label>
-          </div>
-          <div class="calc-checkbox" data-price="400">
-            <input type="checkbox" id="srv-ozone">
-            <label for="srv-ozone">Ozone Odor Removal (+400 UAH)</label>
-          </div>
-          <div class="calc-checkbox" data-price="600">
-            <input type="checkbox" id="srv-engine">
-            <label for="srv-engine">Engine Bay Detailing (+600 UAH)</label>
-          </div>
-        </div>
-      </div>
+        // Элементы DOM
+        const calcItems = document.querySelectorAll('.calc-item');
+        const totalPriceEl = document.getElementById('total-price');
+        const colorInput = document.getElementById('frame-color');
+        const colorHex = document.getElementById('color-hex');
+        const submitBtn = document.getElementById('submit-btn');
+        const statusMsg = document.getElementById('status-msg');
 
-      <div class="calc-total">
-        <p>Estimated Total: <span id="total-price">1500</span> UAH</p>
-      </div>
-    </div>
-  </section>
+        // Обновление цвета
+        colorInput.addEventListener('input', (e) => {
+            colorHex.textContent = e.target.value.toUpperCase();
+            colorHex.style.color = e.target.value;
+        });
 
-  <section class="reviews-section">
-    <h2>What Our Customers Say</h2>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">"The interior looks brand new! They managed to remove a coffee stain that had been there for a year. Highly recommended!"</p>
-        <span class="review-author">- Alex M. (BMW X5)</span>
-      </div>
-      <div class="review-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">"Excellent service in Izmail. Fast, professional, and the free tyre dressing was a nice bonus. Will come back."</p>
-        <span class="review-author">- Elena K. (Audi A4)</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    <div class="faq-container">
-      <div class="faq-item">
-        <button class="faq-question">How long does the interior detailing take?</button>
-        <div class="faq-answer">
-          <p>Typically, it takes between 6 to 12 hours depending on the vehicle size and condition. We usually ask to leave the car in the morning and it's ready by evening.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Do you dry the interior after wet cleaning?</button>
-        <div class="faq-answer">
-          <p>Yes, absolutely. We use professional auto-dryers. You will receive your car 100% dry and ready to drive, with zero moisture left inside.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact-section" class="contact">
-    <div class="contact-container">
-      <h2>Apply Now and Get Free <span>Tyre Dressing</span></h2>
-
-      <form class="lead-form" action="https://formspree.io/f/mojbleoq" method="POST">
-        <div class="input-group">
-          <input type="text" name="name" placeholder="Your Name" required>
-        </div>
-        <div class="input-group">
-          <input type="tel" name="phone" placeholder="Phone Number/Email" required>
-        </div>
-        <div class="input-group">
-          <input type="text" name="car" placeholder="Car Make & Model" id="form-car" required>
-        </div>
-        <input type="hidden" name="estimated_price" id="form-total-price" value="1500 UAH">
-        <button type="submit" class="btn-submit">Submit Application</button>
-      </form>
-
-      <div class="contact-info">
-        <p>📍 <strong>Address:</strong> Izmail, [Street, Building]</p>
-        <p>📞 <strong>Phone:</strong> <a href="tel:+380683343429">+38 (068) 334-34-29</a></p>
-
-        <div class="social-links">
-          <a href="#" target="_blank" class="social-icon">Instagram</a>
-          <a href="#" target="_blank" class="social-icon">Telegram</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Smooth scroll to the form
-    document.getElementById('scroll-btn').addEventListener('click', function (e) {
-      e.preventDefault();
-      document.getElementById('contact-section').scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-
-    // Before/After Slider Functionality
-    const sliderInput = document.querySelector('.slider-input');
-    const imageAfterWrap = document.querySelector('.image-after-wrap');
-    const sliderHandle = document.querySelector('.slider-handle');
-
-    if(sliderInput) {
-      sliderInput.addEventListener('input', (e) => {
-        const value = e.target.value;
-        imageAfterWrap.style.width = `${value}%`;
-        sliderHandle.style.left = `${value}%`;
-      });
-    }
-
-    // Calculator Functionality
-    const bodyCards = document.querySelectorAll('#body-types .calc-card');
-    const extraCheckboxes = document.querySelectorAll('.calc-checkbox input');
-    const totalPriceEl = document.getElementById('total-price');
-    const formPriceInput = document.getElementById('form-total-price');
-
-    function calculateTotal() {
-      let total = 0;
-      
-      // Get base price from active body type
-      const activeBody = document.querySelector('#body-types .calc-card.active');
-      if (activeBody) {
-        total += parseInt(activeBody.getAttribute('data-price'));
-      }
-
-      // Add extra services
-      extraCheckboxes.forEach(cb => {
-        if (cb.checked) {
-          total += parseInt(cb.parentElement.getAttribute('data-price'));
+        // Калькулятор
+        function calculateTotal() {
+            let total = 0;
+            calcItems.forEach(item => {
+                total += parseInt(item.value);
+            });
+            totalPriceEl.textContent = total.toLocaleString('ru-RU');
+            return total;
         }
-      });
 
-      // Update UI & Hidden form input
-      totalPriceEl.textContent = total;
-      if(formPriceInput) formPriceInput.value = total + ' UAH';
-    }
+        calcItems.forEach(item => item.addEventListener('change', calculateTotal));
+        calculateTotal(); // Инициализация при загрузке
 
-    bodyCards.forEach(card => {
-      card.addEventListener('click', () => {
-        bodyCards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        calculateTotal();
-      });
-    });
+        // Отправка в Telegram
+        submitBtn.addEventListener('click', async () => {
+            const name = document.getElementById('client-name').value.trim();
+            const contact = document.getElementById('client-contact').value.trim();
 
-    extraCheckboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
-        if(cb.checked) {
-          cb.parentElement.classList.add('active');
-        } else {
-          cb.parentElement.classList.remove('active');
+            if (!name || !contact) {
+                showStatus('Пожалуйста, заполните имя и контакты', '#FF2A2A');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+
+            // Собираем данные
+            const frame = document.getElementById('frame').options[document.getElementById('frame').selectedIndex].dataset.name;
+            const groupset = document.getElementById('groupset').options[document.getElementById('groupset').selectedIndex].dataset.name;
+            const wheels = document.getElementById('wheels').options[document.getElementById('wheels').selectedIndex].dataset.name;
+            const color = colorInput.value.toUpperCase();
+            const total = calculateTotal();
+
+            // Формируем текст
+            const text = `🔥 <b>Новый кастомный заказ!</b>\n\n` +
+                `👤 <b>Клиент:</b> ${name}\n` +
+                `📞 <b>Связь:</b> ${contact}\n\n` +
+                `🚲 <b>Комплектация:</b>\n` +
+                `• Рама: ${frame}\n` +
+                `• Цвет: ${color}\n` +
+                `• Группсет: ${groupset}\n` +
+                `• Колеса: ${wheels}\n\n` +
+                `💰 <b>Сумма:</b> ${total.toLocaleString('ru-RU')} ₴`;
+
+            // Отправка запроса к Telegram API
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    showStatus('Заявка успешно отправлена!', '#00E676');
+                    document.getElementById('client-name').value = '';
+                    document.getElementById('client-contact').value = '';
+                } else {
+                    throw new Error('Ошибка API');
+                }
+            } catch (error) {
+                showStatus('Ошибка отправки. Проверьте токен и Chat ID.', '#FF2A2A');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить заявку';
+            }
+        });
+
+        function showStatus(text, color) {
+            statusMsg.textContent = text;
+            statusMsg.style.color = color;
+            statusMsg.style.display = 'block';
+            setTimeout(() => { statusMsg.style.display = 'none'; }, 5000);
         }
-        calculateTotal();
-      });
-    });
-
-    // FAQ Accordion Functionality
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-  </script>
+    </script>
 </body>
 
 </html>
