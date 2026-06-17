@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyHouseInJapan — Akiya Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;900&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #0A0A0A;
+  --offwhite:#F5F0E8;
+  --red:     #C8102E;
+  --gold:    #B8965A;
+  --mid:     #111111;
+  --mid2:    #161616;
+  --muted:   #8A827A;
+  --border:  rgba(184,150,90,0.15);
+  --r-sm:    8px;
+  --r-md:    14px;
+  --r-lg:    20px;
+  --r-xl:    28px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--offwhite);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PARTICLE CANVAS ── */
+#particles { position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.4; }
+
+/* ── CURSOR ── */
+.cursor-dot {
+  position: fixed; width: 8px; height: 8px;
+  background: var(--red); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, opacity 0.3s;
+}
+.cursor-ring {
+  position: fixed; width: 40px; height: 40px;
+  border: 1px solid rgba(184,150,90,0.4); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+}
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring {
+  width: 56px; height: 56px;
+  border-color: var(--red);
+  background: rgba(200,16,46,0.05);
+}
+.cursor-glow {
+  position: fixed; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,16,46,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 9997;
+  transform: translate(-50%,-50%);
+}
+
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring, .cursor-glow { display: none !important; }
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px;
+  background: transparent;
+  transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s, padding 0.4s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-color: var(--border);
+  padding: 16px 48px;
+}
+.nav-logo {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--offwhite); text-decoration: none;
+  position: relative; z-index: 1001;
+}
+.nav-logo span { color: var(--red); }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(245,240,232,0.6); text-decoration: none; position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--gold); transition: width 0.35s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--black); background: var(--gold);
+  padding: 12px 26px; border-radius: 100px;
+  text-decoration: none; transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.nav-cta:hover { background: #c9a66a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,150,90,0.25); }
+
+/* Бургер меню */
+.hamburger {
+  display: none; background: transparent; border: none; cursor: pointer;
+  padding: 8px; z-index: 1001;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px; background: var(--offwhite);
+  margin: 5px 0; transition: transform 0.3s, opacity 0.3s; border-radius: 2px;
+}
+.mobile-only { display: none; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
+  position: relative; overflow: hidden;
+}
+.hero-kanji {
+  position: absolute; right: 40%; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(300px, 45vw, 720px); font-weight: 900;
+  color: rgba(255,255,255,0.012); line-height: 1;
+  pointer-events: none; z-index: 0;
+  user-select: none;
+}
+.hero-left {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 80px 80px;
+  background: linear-gradient(135deg, #0A0A0A 0%, #111111 100%);
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 36px; height: 1px; background: var(--red);
+}
+.hero-eyebrow span {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red);
+}
+h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(36px, 4.5vw, 64px); font-weight: 300; line-height: 1.2;
+  color: var(--offwhite); margin-bottom: 16px;
+}
+h1 strong { font-weight: 900; display: block; margin-top: 8px; color: var(--offwhite); }
+h1 em { font-style: normal; font-weight: 600; }
+
+.hero-price {
+  margin: 28px 0; display: flex; align-items: center; gap: 16px;
+}
+.hero-price .amount {
+  font-family: 'Noto Serif JP', serif; font-size: 56px; font-weight: 900;
+  color: var(--offwhite); line-height: 1;
+  background: linear-gradient(135deg, var(--offwhite) 30%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-price .label { font-size: 13px; color: var(--muted); max-width: 200px; line-height: 1.5; }
+.hero-desc {
+  font-size: 16px; color: rgba(245,240,232,0.6); max-width: 460px; margin-bottom: 40px; line-height: 1.8;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 14px; justify-content: center;
+  background: var(--red); color: #fff; text-decoration: none;
+  padding: 18px 36px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0; border-radius: 100px;
+  background: rgba(255,255,255,0.15);
+  transform: translateX(-100%); transition: transform 0.4s ease;
+}
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,16,46,0.4); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px; color: var(--gold);
+  text-decoration: none; padding: 12px 0;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border); transition: color 0.3s, gap 0.3s, border-color 0.3s;
+}
+.btn-secondary:hover { color: var(--offwhite); gap: 18px; border-color: var(--offwhite); }
+.hero-buttons { display: flex; align-items: center; gap: 36px; }
+
+.hero-right { position: relative; z-index: 1; overflow: hidden; }
+.hero-visual {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, #0c0f0a 0%, #080d06 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.hero-visual::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(184,150,90,0.03) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(184,150,90,0.03) 60px);
+  animation: gridPulse 6s ease-in-out infinite alternate;
+}
+@keyframes gridPulse {
+  0% { opacity: 0.3; } 100% { opacity: 1; }
+}
+.hero-visual-inner { text-align: center; position: relative; z-index: 1; }
+.hero-visual-kanji {
+  font-family: 'Noto Serif JP', serif; font-size: 180px; font-weight: 900;
+  color: rgba(184,150,90,0.08); line-height: 1;
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.04); opacity: 1; color: rgba(184,150,90,0.15); }
+}
+.hero-visual-label {
+  font-family: 'Noto Serif JP', serif; font-size: 12px; letter-spacing: 0.42em;
+  color: rgba(184,150,90,0.4); margin-top: 16px; text-transform: uppercase;
+}
+.jp-vert {
+  writing-mode: vertical-rl; font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px; font-weight: 300; letter-spacing: 0.4em;
+  color: rgba(184,150,90,0.25); position: absolute; right: 32px; top: 50%; transform: translateY(-50%);
+}
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 80px;
+  display: flex; align-items: center; gap: 16px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); z-index: 2;
+}
+.scroll-hint::before {
+  content: ''; display: block; width: 1px; height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  animation: scrollPulse 2s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(0.5); opacity: 0.3; }
+  50% { transform: scaleY(1.2); opacity: 1; }
+}
+
+/* ── STATS ── */
+.stats-bar {
+  background: var(--mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(3, 1fr); position: relative; z-index: 10;
+}
+.stat-item {
+  padding: 56px 64px; border-right: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.stat-item:last-child { border-right: none; }
+.stat-bar-line {
+  width: 40px; height: 2px; background: var(--red); margin-bottom: 20px;
+  border-radius: 2px;
+}
+.stat-num {
+  font-family: 'Noto Serif JP', serif; font-size: 52px; font-weight: 900;
+  color: var(--offwhite); line-height: 1; margin-bottom: 12px;
+}
+.stat-num sup { font-size: 22px; top: -0.2em; }
+.stat-label { font-size: 13px; color: var(--muted); max-width: 240px; line-height: 1.6; }
+
+.stat-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(184,150,90,0.03) 50%, transparent 100%);
+  transform: translateX(-100%); transition: transform 0.6s ease;
+}
+.stat-item:hover::after { transform: translateX(100%); }
+
+/* ── STORY ── */
+.section-story { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; position: relative; z-index: 10; }
+.story-img-col { position: relative; overflow: hidden; }
+.story-visual {
+  width: 100%; height: 100%; min-height: 600px;
+  background: linear-gradient(180deg, #0a1108 0%, #121a0f 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.story-kanji-stack { display: flex; flex-direction: column; align-items: center; }
+.story-kanji-stack span {
+  font-family: 'Noto Serif JP', serif; font-size: 120px; font-weight: 900;
+  color: rgba(184,150,90,0.12); line-height: 0.95; display: block;
+  transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.story-kanji-stack:hover span { color: rgba(184,150,90,0.3); }
+.story-kanji-stack:hover span:nth-child(1) { transform: translateX(-10px); }
+.story-kanji-stack:hover span:nth-child(3) { transform: translateX(10px); }
+.story-kanji-label { font-size: 11px; letter-spacing: 0.36em; color: rgba(184,150,90,0.3); margin-top: 24px; font-family: 'Noto Sans JP', sans-serif; text-transform: uppercase; }
+.story-visual::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--border), transparent); }
+.story-text-col { background: var(--mid); padding: 120px 80px; display: flex; flex-direction: column; justify-content: center; }
+
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 16px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+h2 {
+  font-family: 'Noto Serif JP', serif; font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 300; line-height: 1.25; color: var(--offwhite); margin-bottom: 32px;
+}
+h2 strong { font-weight: 900; color: var(--offwhite); }
+.story-body { font-size: 16px; color: rgba(245,240,232,0.65); line-height: 1.85; margin-bottom: 24px; }
+.jp-aside {
+  margin: 40px 0; padding: 32px;
+  border-left: 2px solid var(--red); border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: rgba(200,16,46,0.03);
+}
+.jp-aside p { font-family: 'Noto Serif JP', serif; font-size: 15px; color: var(--offwhite); font-style: italic; line-height: 1.8; }
+.jp-chars { font-size: 24px; font-weight: 900; color: rgba(184,150,90,0.3); display: block; margin-bottom: 12px; letter-spacing: 0.2em; }
+
+/* ── GUIDE ── */
+.section-guide { background: var(--black); padding: 140px 0; position: relative; overflow: hidden; z-index: 10; }
+.section-guide::before {
+  content: '道'; position: absolute; right: -0.05em; bottom: -0.05em;
+  font-family: 'Noto Serif JP', serif; font-size: 620px; font-weight: 900;
+  color: rgba(255,255,255,0.008); line-height: 1; pointer-events: none; user-select: none;
+}
+.container { max-width: 1240px; margin: 0 auto; padding: 0 64px; position: relative; z-index: 1; }
+.guide-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-end; margin-bottom: 80px; }
+.guide-intro { font-size: 16px; color: rgba(245,240,232,0.55); line-height: 1.85; }
+
+.guide-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.guide-feature {
+  background: var(--mid2); padding: 56px 40px;
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(184,150,90,0.08);
+  position: relative; overflow: hidden;
+  transition: background 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: default;
+}
+.guide-feature::before {
+  content: ''; position: absolute; inset: 0; border-radius: var(--r-lg);
+  background: radial-gradient(circle at 50% 0%, rgba(184,150,90,0.04), transparent 75%);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.guide-feature:hover { background: #1c1c1c; border-color: rgba(184,150,90,0.25); transform: translateY(-6px); }
+.guide-feature:hover::before { opacity: 1; }
+
+.guide-feature::after {
+  content: ''; position: absolute; bottom: 0; left: 24px; right: 24px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform 0.5s ease;
+}
+.guide-feature:hover::after { transform: scaleX(1); }
+
+.feature-icon-wrap {
+  width: 52px; height: 52px; border: 1px solid rgba(184,150,90,0.15);
+  border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px; transition: border-color 0.4s, background 0.4s;
+  background: rgba(184,150,90,0.02);
+}
+.guide-feature:hover .feature-icon-wrap { border-color: var(--gold); background: rgba(184,150,90,0.08); }
+.feature-icon-wrap svg {
+  width: 24px; height: 24px; color: var(--gold);
+  fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round;
+}
+.feature-title { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600; color: var(--offwhite); margin-bottom: 12px; }
+.feature-desc { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+/* ── PRODUCT ── */
+.product-section { background: var(--mid); padding: 140px 0; border-top: 1px solid var(--border); position: relative; z-index: 10; }
+.product-card {
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden;
+  max-width: 1140px; margin: 0 auto; background: rgba(10,10,10,0.3);
+  backdrop-filter: blur(10px);
+}
+.product-img {
+  background: linear-gradient(135deg, #0f140e 0%, #050804 100%); min-height: 580px;
+  display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+}
+.product-img::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(184,150,90,0.02) 60px),
+             repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(184,150,90,0.02) 60px);
+}
+.product-book {
+  border: 1px solid rgba(184,150,90,0.25);
+  border-radius: var(--r-md);
+  padding: 60px 48px; text-align: center;
+  position: relative; z-index: 1;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+  transform-style: preserve-3d;
+  background: rgba(10,10,10,0.8);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+}
+.product-book::before {
+  content: ''; position: absolute; top: -1px; left: 32px; width: 48px; height: 2px;
+  background: var(--red); border-radius: 2px;
+}
+.book-label { font-family: 'Noto Serif JP', serif; font-size: 13px; letter-spacing: 0.44em; color: var(--gold); margin-bottom: 28px; text-transform: uppercase; }
+.book-title { font-family: 'Noto Serif JP', serif; font-size: 32px; font-weight: 900; color: var(--offwhite); line-height: 1.3; margin-bottom: 12px; }
+.book-sub { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+.book-divider { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 36px; opacity: 0.5; }
+.book-domain { font-size: 11px; letter-spacing: 0.22em; color: rgba(184,150,90,0.4); text-transform: uppercase; }
+.product-bg-kanji {
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  font-family: 'Noto Serif JP', serif; font-size: 100px; font-weight: 900;
+  color: rgba(255,255,255,0.015); writing-mode: vertical-rl; pointer-events: none; user-select: none;
+}
+.product-info { padding: 80px 64px; background: #121212; display: flex; flex-direction: column; justify-content: center; }
+h3 { font-family: 'Noto Serif JP', serif; font-size: 32px; font-weight: 300; color: var(--offwhite); margin-bottom: 12px; line-height: 1.25; }
+h3 strong { font-weight: 900; }
+.product-price { margin: 24px 0; display: flex; align-items: baseline; gap: 10px; }
+.product-price .price { font-family: 'Noto Serif JP', serif; font-size: 56px; font-weight: 900; color: var(--offwhite); }
+.product-price .currency { font-size: 16px; color: var(--muted); font-weight: 500; letter-spacing: 0.05em; }
+.product-features { list-style: none; margin-bottom: 44px; }
+.product-features li {
+  font-size: 14.5px; color: rgba(245,240,232,0.7);
+  padding: 12px 0; border-bottom: 1px solid rgba(184,150,90,0.1);
+  display: flex; align-items: center; gap: 14px;
+  transition: color 0.3s, padding-left 0.3s;
+}
+.product-features li:hover { color: var(--offwhite); padding-left: 6px; }
+.product-features li svg {
+  width: 16px; height: 16px; flex-shrink: 0; color: var(--red);
+  fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round;
+}
+.btn-buy {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  background: var(--red); color: #fff; text-decoration: none;
+  padding: 22px 36px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; width: 100%;
+  position: relative; overflow: hidden; transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.btn-buy::after { content: ''; position: absolute; inset: 0; border-radius: 100px; background: rgba(255,255,255,0.1); transform: translateX(-100%); transition: transform 0.4s; }
+.btn-buy:hover::after { transform: translateX(0); }
+.btn-buy:hover { background: #a80d25; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,16,46,0.35); }
+.savings-badge {
+  margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12.5px; color: var(--gold);
+  background: rgba(184,150,90,0.05);
+  padding: 10px 18px; border-radius: 100px;
+  border: 1px solid rgba(184,150,90,0.12);
+}
+.savings-badge svg { width: 14px; height: 14px; fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; }
+
+/* ── JOURNEY ── */
+.section-journey { background: var(--black); padding: 140px 0; border-top: 1px solid var(--border); position: relative; z-index: 10; }
+.journey-header { text-align: center; margin-bottom: 80px; }
+.journey-header .section-label { justify-content: center; margin-bottom: 24px; }
+.journey-header .section-label::before { content: ''; width: 60px; height: 1px; background: var(--border); display: block; }
+.journey-header .section-label::after { width: 60px; flex: none; }
+
+.social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1240px; margin: 0 auto; padding: 0 64px; }
+.social-card {
+  background: var(--mid2); padding: 56px 44px; text-decoration: none;
+  border-radius: var(--r-xl); border: 1px solid rgba(184,150,90,0.08);
+  transition: background 0.35s, border-color 0.35s, transform 0.35s;
+  display: block; position: relative; overflow: hidden;
+}
+.social-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.social-card:hover { background: #1c1c1c; border-color: rgba(184,150,90,0.2); transform: translateY(-8px); }
+.social-card:hover::before { transform: scaleX(1); }
+.social-icon-wrap {
+  width: 50px; height: 50px; border: 1px solid rgba(184,150,90,0.15); border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 28px;
+  transition: border-color 0.3s, background 0.3s; background: rgba(184,150,90,0.02);
+}
+.social-card:hover .social-icon-wrap { border-color: var(--gold); background: rgba(184,150,90,0.08); }
+.social-icon-wrap svg {
+  width: 22px; height: 22px; fill: none; stroke: var(--gold);
+  stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s;
+}
+.social-platform { font-size: 11px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.social-title { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 600; color: var(--offwhite); margin-bottom: 12px; line-height: 1.3; }
+.social-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+.social-link {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--offwhite); display: flex; align-items: center; gap: 10px; transition: gap 0.3s, color 0.3s;
+}
+.social-card:hover .social-link { gap: 16px; color: var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--mid); border-top: 1px solid var(--border);
+  padding: 80px 64px 48px;
+  display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr; gap: 64px; align-items: start;
+  position: relative; z-index: 10;
+}
+.footer-brand .nav-logo { font-size: 18px; display: block; margin-bottom: 16px; }
+.footer-brand p { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 280px; }
+.footer-nav h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+.footer-nav ul { list-style: none; }
+.footer-nav li { margin-bottom: 12px; }
+.footer-nav a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s, padding-left 0.2s; }
+.footer-nav a:hover { color: var(--offwhite); padding-left: 4px; }
+.footer-copy {
+  grid-column: 1/-1; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(107,101,96,0.4);
+}
+.footer-jp { font-family: 'Noto Serif JP', serif; font-size: 18px; color: rgba(184,150,90,0.15); letter-spacing: 0.32em; }
+
+/* ── RIPPLE ── */
+.ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  transform: scale(0); animation: rippleAnim 0.5s cubic-bezier(0.1, 0.8, 0.3, 1);
+  pointer-events: none;
+}
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+/* ── SHIMMER on gold text ── */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, #f3d18c 30%, var(--gold) 60%, #8a6834 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
+
+/* ── INITIAL STATE FOR GSAP (Prevent flash) ── */
+.g-reveal, .g-left, .g-right, .g-scale, .g-fade { visibility: hidden; }
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ ВИДЕО И ОБЛОЖКИ --- */
+
+/* Универсальный контейнер для видео */
+.custom-media-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mid2);
+}
+
+/* Специфичная высота для секции Story, чтобы не ломался грид */
+.story-media {
+  min-height: 600px;
+}
+
+/* Само видео (растягивается на весь контейнер, как фон) */
+.custom-media-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Легкое затемнение поверх видео, чтобы дизайн смотрелся дорого и не бил по глазам */
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.6) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Стили для картинки-обложки в секции оплаты */
+img.custom-product-cover {
+  padding: 0 !important; 
+  background: transparent !important;
+  border: 1px solid rgba(184,150,90,0.4) !important;
+  width: 100%;
+  max-width: 340px; 
+  height: auto;
+  aspect-ratio: 3 / 4; 
+  object-fit: cover;
+  display: block;
+}
+img.custom-product-cover::before {
+  display: none !important; 
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE & MOBILE ADAPTATION
+════════════════════════════════════════ */
+@media(max-width:960px){
+  /* Навигация и бургер */
+  nav { padding: 20px 24px; }
+  .hamburger { display: block; }
+  .desktop-only { display: none; }
+  .mobile-only { display: block; margin-top: 24px; }
+  
+  .nav-links {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(15px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s;
+    z-index: -1;
+  }
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav-links a { font-size: 16px; }
+  .nav-links a::after { bottom: -6px; }
+  
+  /* Убираем фон с хэдера, когда открыто меню */
+  nav.menu-open {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-color: transparent !important;
+  }
+  
+  /* Анимация крестика */
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Hero Секция */
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 120px 24px 60px; }
+  .hero-right { height: 50vh; min-height: 300px; }
+  .hero-buttons { flex-direction: column; align-items: stretch; gap: 16px; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+  
+  /* Размеры шрифтов и визуал */
+  h1 { font-size: 38px; }
+  .hero-kanji { font-size: 300px; right: -10%; opacity: 0.05; } 
+  
+  /* Статистика */
+  .stats-bar { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+  .stat-item:last-child { border-bottom: none; } /* Фикс двойной линии внизу */
+
+  /* Остальные секции */
+  .section-story { grid-template-columns: 1fr; }
+  .story-visual { min-height: 340px; }
+  .story-text-col { padding: 60px 24px; }
+  
+  .guide-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+  .guide-features { grid-template-columns: 1fr; gap: 16px; }
+  
+  .product-card { grid-template-columns: 1fr; }
+  .product-img { min-height: 380px; }
+  .custom-product-cover { max-width: 240px; } /* Защита от разъезжания на телефонах */
+  .product-info { padding: 48px 24px; }
+  
+  .social-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 16px; }
+  footer { grid-template-columns: 1fr; padding: 60px 24px 40px; gap: 40px; }
+  .container { padding: 0 24px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor-dot"  id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<nav id="mainNav">
+  <a class="nav-logo" href="#">My<span>House</span>InJapan</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#guide">The Guide</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="https://howtobuyahouseinjapan.com/pages/contact">Contact</a></li>
+    <li class="mobile-only"><a class="nav-cta" href="#product">Get the Guide</a></li>
+  </ul>
+  <a class="nav-cta desktop-only" href="#product">Get the Guide</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-kanji" id="heroKanji">家</div>
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span>空き家 — Akiya</span></div>
+    <h1>
+      I bought a house<br>in Japan for<br>
+      <em>$18,000 USD</em>
+      <strong>You can too.</strong>
+    </h1>
+    <div class="hero-price">
+      <span class="amount">30K</span>
+      <span class="label">AUD — 2 hours from Tokyo, in the mountain countryside</span>
+    </div>
+    <p class="hero-desc">Abandoned homes across Japan are being sold for almost nothing. I bought one, documented every step, and turned it into the guide I wish I had.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary mag-btn" href="https://howtobuyahouseinjapan.com/products/buying-akiya-in-japan">
+        Get the Complete Guide
+        <svg style="margin-left:8px;" width="15" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 5h14M11 1l4 4-4 4"/></svg>
+      </a>
+      <a class="btn-secondary" href="#story">Read the story →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="custom-media-wrapper">
+      <video class="custom-media-element" autoplay loop muted playsinline>
+        <source src="files/90b9ec9741df4811b21701e9cb2384c1.HD-1080p-4.8Mbps-83098391.mp4" type="video/mp4">
+      </video>
+      <div class="media-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item g-reveal">
+    <div class="stat-bar-line"></div>
+    <div class="stat-num" data-target="18" data-prefix="$" data-suffix="K">$18K</div>
+    <div class="stat-label">Purchase price in USD — less than 1 year's rent in Australia</div>
+  </div>
+  <div class="stat-item g-reveal">
+    <div class="stat-bar-line"></div>
+    <div class="stat-num" data-target="8" data-prefix="" data-suffix="M+">8M+</div>
+    <div class="stat-label">Empty Akiya properties available across Japan right now</div>
+  </div>
+  <div class="stat-item g-reveal">
+    <div class="stat-bar-line"></div>
+    <div class="stat-num" data-target="10" data-prefix="$" data-suffix="K">$10K</div>
+    <div class="stat-label">Saved by avoiding overpriced foreign-buyer middlemen</div>
+  </div>
+</div>
+
+<section class="section-story" id="story">
+  <div class="story-img-col g-left">
+    <div class="custom-media-wrapper story-media">
+      <video class="custom-media-element" autoplay loop muted playsinline>
+        <source src="files/0a139299c0b54bd0bef0401baed5d81d.HD-1080p-7.2Mbps-83393350.mp4" type="video/mp4">
+      </video>
+      <div class="media-overlay"></div>
+    </div>
+  </div>
+  <div class="story-text-col">
+    <div class="section-label g-reveal">The Discovery</div>
+    <h2 class="g-reveal">I didn't believe<br><strong>it was real</strong> either</h2>
+    <p class="story-body g-reveal">I first discovered Akiya — Japan's abandoned or vacant houses — through social media. At first, I dismissed it as too good to be true. A house in Japan for the price of a used car?</p>
+    <p class="story-body g-reveal">Over two years, I researched obsessively. I learned the process, the pitfalls, the language barriers, the overpriced middlemen specifically targeting foreigners. Then I bought my house.</p>
+    <div class="jp-aside g-reveal">
+      <span class="jp-chars">夢・現実</span>
+      <p>"I found so many people dreaming of owning a home in Japan but struggling to know where to start — or being overcharged for services they could do themselves."</p>
+    </div>
+    <p class="story-body g-reveal">This guide is everything I learned and wished I had known before buying. A shortcut built from real experience, not theory.</p>
+  </div>
+</section>
+
+<section class="section-guide" id="guide">
+  <div class="container">
+    <div class="guide-header">
+      <div>
+        <div class="section-label g-reveal">The Complete Guide</div>
+        <h2 class="g-reveal">Everything you need.<br><strong>Nothing you don't.</strong></h2>
+      </div>
+      <p class="guide-intro g-reveal">The process of buying an Akiya is simpler than most think — you just need to know how it works. This guide removes every barrier between you and your Japanese home: language, process, cost, and confidence.</p>
+    </div>
+    <div class="guide-features">
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
+        </div>
+        <div class="feature-title">No Japanese Required</div>
+        <p class="feature-desc">Direct access to my personal buyer's agent is included. Navigate the entire process without speaking a word of Japanese.</p>
+      </div>
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 8l3 5 3-5"/><line x1="9" y1="11.5" x2="15" y2="11.5"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+        </div>
+        <div class="feature-title">Full Cost Transparency</div>
+        <p class="feature-desc">Every major cost documented so you avoid hidden fees, unexpected expenses, and inflated rates charged to foreign buyers.</p>
+      </div>
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/><line x1="8" y1="17.5" x2="11" y2="17.5"/></svg>
+        </div>
+        <div class="feature-title">Step-by-Step Timeline</div>
+        <p class="feature-desc">The complete process from finding your Akiya to owning it — using my real purchase as the blueprint.</p>
+      </div>
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/><circle cx="16.5" cy="6.5" r="2.5"/><line x1="18.3" y1="8.3" x2="20.5" y2="10.5"/></svg>
+        </div>
+        <div class="feature-title">Property Identification</div>
+        <p class="feature-desc">Learn listing terms, spot red flags, identify good properties, and know exactly what to negotiate on.</p>
+      </div>
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5z"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+        </div>
+        <div class="feature-title">Avoid Middlemen</div>
+        <p class="feature-desc">Identify foreigner-focused services charging thousands for work you can do yourself. I saved over $10,000 this way.</p>
+      </div>
+
+      <div class="guide-feature g-scale">
+        <div class="feature-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="feature-title">Fact-Checked & Verified</div>
+        <p class="feature-desc">Every piece of information verified by personal experience and reviewed by a professional buyer's agent.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="product-section" id="product">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;" class="g-reveal">
+      <div class="section-label" style="justify-content:center;">
+        Available Now
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img g-left">
+        <div class="product-bg-kanji">手引き</div>
+        <img src="images/1000109443 (1414×2000).png" alt="Обложка гайда" class="product-book custom-product-cover">
+      </div>
+      <div class="product-info g-right">
+        <div class="section-label">空き家購入ガイド</div>
+        <h3>Buying Akiya in Japan<br><strong>The Complete Guide</strong></h3>
+        <p style="font-size:14.5px;color:var(--muted);line-height:1.85;margin-top:14px;margin-bottom:14px;">A step-by-step guide based on the real experience of purchasing a house in rural Japan — for under $20,000 USD.</p>
+        <div class="product-price">
+          <span class="currency">AUD</span>
+          <span class="price">$149<span class="currency" style="font-size:24px;">.99</span></span>
+        </div>
+        <ul class="product-features">
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Complete step-by-step buying process</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Access to my personal buyer's agent</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Every cost and fee documented</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Negotiation tactics from my real purchase</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>How to spot and avoid overpriced middlemen</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Property identification & listing term glossary</li>
+          <li><svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>Fact-checked by a professional buyer's agent</li>
+        </ul>
+        <a class="btn-buy mag-btn" href="https://howtobuyahouseinjapan.com/products/buying-akiya-in-japan">
+          Purchase the Guide
+          <svg width="15" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 5h14M11 1l4 4-4 4"/></svg>
+        </a>
+        <div class="savings-badge">
+          <svg viewBox="0 0 16 16"><polyline points="2,8 6,12 14,4"/></svg>
+          Includes buyer's agent access — no Japanese required
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-journey" id="journey">
+  <div class="journey-header container">
+    <div class="section-label g-reveal">Follow the Akiya Journey</div>
+    <h2 class="g-reveal" style="text-align:center;max-width:580px;margin:0 auto 16px;">Renovation, life in Japan,<br><strong>and the build in progress</strong></h2>
+    <p class="g-reveal" style="text-align:center;font-size:15px;color:var(--muted);max-width:460px;margin:0 auto;">Follow the renovation of my mountain home across YouTube, Instagram, and TikTok.</p>
+  </div>
+  <div class="social-grid">
+    <a class="social-card g-scale" href="https://www.youtube.com/@JacksAdventures26" target="_blank" rel="noopener">
+      <div class="social-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/></svg>
+      </div>
+      <div class="social-platform">YouTube</div>
+      <div class="social-title">Full Renovation Videos</div>
+      <p class="social-desc">Complete walkthroughs, renovation progress, and life in rural Japan — long-form documentary style.</p>
+      <div class="social-link">Subscribe to channel <span>→</span></div>
+    </a>
+    <a class="social-card g-scale" href="https://www.instagram.com/jack_chilcote/" target="_blank" rel="noopener">
+      <div class="social-icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="social-platform">Instagram</div>
+      <div class="social-title">Daily Life in Japan</div>
+      <p class="social-desc">Behind-the-scenes of the Akiya build, DIY projects, and everyday moments from mountain living.</p>
+      <div class="social-link">View profile <span>→</span></div>
+    </a>
+    <a class="social-card g-scale" href="https://www.tiktok.com/@jack_chilcote26" target="_blank" rel="noopener">
+      <div class="social-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M9 18V6l12-2v3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="social-platform">TikTok</div>
+      <div class="social-title">Short-form Updates</div>
+      <p class="social-desc">Quick glimpses of the renovation, surprising discoveries in the house, and Japanese countryside life.</p>
+      <div class="social-link">Watch now <span>→</span></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand g-reveal">
+    <a class="nav-logo" href="#">My<span>House</span>InJapan</a>
+    <p>A real buyer's guide to purchasing Akiya — abandoned houses — in Japan. Built from genuine experience, not theory.</p>
+  </div>
+  <div class="footer-nav g-reveal">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="https://howtobuyahouseinjapan.com/collections/all">Catalog</a></li>
+      <li><a href="https://howtobuyahouseinjapan.com/pages/contact">Contact</a></li>
+      <li><a href="https://www.youtube.com/@JacksAdventures26">YouTube</a></li>
+      <li><a href="https://www.instagram.com/jack_chilcote/">Instagram</a></li>
+    </ul>
+  </div>
+  <div class="footer-nav g-reveal">
+    <h4>空き家ガイド</h4>
+    <ul>
+      <li><a href="#story">My Story</a></li>
+      <li><a href="#guide">What's Inside</a></li>
+      <li><a href="https://howtobuyahouseinjapan.com/products/buying-akiya-in-japan">Buy the Guide — $149.99 AUD</a></li>
+    </ul>
+  </div>
+  <div class="footer-copy">
+    <span>© 2025 MyHouseInJapan. All rights reserved.</span>
+    <span class="footer-jp">家・夢・現実</span>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   PARTICLES
+════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const GOLD = 'rgba(184,150,90,';
+  const RED  = 'rgba(200,16,46,';
+
+  for(let i=0;i<55;i++){
+    particles.push({
+      x: Math.random()*window.innerWidth,
+      y: Math.random()*window.innerHeight,
+      r: Math.random()*1.6+0.4,
+      vx: (Math.random()-0.5)*0.25,
+      vy: (Math.random()-0.5)*0.25,
+      a: Math.random(),
+      c: Math.random()>0.7 ? RED : GOLD,
+      pa: Math.random()*0.5+0.1
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      p.a += 0.004;
+      const alpha = (Math.sin(p.a)*0.5+0.5)*p.pa;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = p.c+alpha+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ════════════════════════════════════════
+   CUSTOM CURSOR
+════════════════════════════════════════ */
+const dot   = document.getElementById('cursorDot');
+const ring  = document.getElementById('cursorRing');
+const glow  = document.getElementById('cursorGlow');
+let mx=0,my=0, rx=0,ry=0, gx=0,gy=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+
+(function moveCursor(){
+  dot.style.left  = mx+'px'; dot.style.top  = my+'px';
+  rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  gx += (mx-gx)*0.05; gy += (my-gy)*0.05;
+  glow.style.left = gx+'px'; glow.style.top = gy+'px';
+  requestAnimationFrame(moveCursor);
+})();
+
+/* ════════════════════════════════════════
+   NAV SCROLL & MOBILE MENU LOGIC
+════════════════════════════════════════ */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  const isActive = navLinks.classList.toggle('active');
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('menu-open', isActive);
+  // Блокируем скролл сайта при открытом меню
+  document.body.style.overflow = isActive ? 'hidden' : '';
+});
+
+// Закрываем меню при клике на любую ссылку
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    hamburger.classList.remove('active');
+    nav.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ════════════════════════════════════════
+   GSAP ANIMATIONS
+════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.g-reveal').forEach((el)=>{
+  gsap.fromTo(el, 
+    { autoAlpha: 0, y: 40 },
+    { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } }
+  );
+});
+
+gsap.utils.toArray('.g-left').forEach(el=>{
+  gsap.fromTo(el,
+    { autoAlpha: 0, x: -50 },
+    { autoAlpha: 1, x: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 85%' } }
+  );
+});
+
+gsap.utils.toArray('.g-right').forEach(el=>{
+  gsap.fromTo(el,
+    { autoAlpha: 0, x: 50 },
+    { autoAlpha: 1, x: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 85%' } }
+  );
+});
+
+gsap.utils.toArray('.g-scale').forEach((el, i)=>{
+  gsap.fromTo(el,
+    { autoAlpha: 0, scale: 0.92, y: 20 },
+    { autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: 'power4.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: el, start: 'top 88%' } }
+  );
+});
+
+/* HERO PARALLAX */
+gsap.to('#heroKanji',{
+  y: -100, ease: 'none',
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+});
+gsap.to('#heroKanji',{ rotation: 0.5, yoyo: true, repeat: -1, duration: 7, ease: 'sine.inOut' });
+
+/* COUNT-UP STATS */
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+  const target = +el.dataset.target;
+  const pre    = el.dataset.prefix  || '';
+  const suf    = el.dataset.suffix  || '';
+  const obj    = { val: 0 };
+  ScrollTrigger.create({
+    trigger: el, start: 'top 85%', once: true,
+    onEnter(){
+      gsap.to(obj, {
+        val: target, duration: 2.5, ease: 'power3.out',
+        onUpdate(){ el.innerHTML = pre + Math.round(obj.val) + (suf.includes('sup') ? suf : `<sup>${suf}</sup>`); }
+      });
+    }
+  });
+});
+
+/* STORY KANJI STAGGER */
+gsap.utils.toArray('.story-kanji-stack span').forEach((span, i)=>{
+  gsap.fromTo(span,
+    { autoAlpha: 0, x: -30 },
+    { autoAlpha: 1, x: 0, duration: 1, ease: 'expo.out', delay: i * 0.15, scrollTrigger: { trigger: '.section-story', start: 'top 78%' } }
+  );
+});
+
+/* PRODUCT BOOK 3D TILT */
+const book = document.querySelector('.product-book');
+if(book){
+  book.addEventListener('mousemove', e=>{
+    const r = book.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    gsap.to(book, { rotationX: -y * 12, rotationY: x * 12, transformPerspective: 1000, duration: 0.3, ease: 'power2.out' });
+  });
+  book.addEventListener('mouseleave', ()=>{
+    gsap.to(book, { rotationX: 0, rotationY: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' });
+  });
+}
+
+/* MAGNETIC BUTTONS */
+document.querySelectorAll('.mag-btn').forEach(btn=>{
+  btn.addEventListener('mousemove', e=>{
+    const r  = btn.getBoundingClientRect();
+    const dx = e.clientX - r.left - r.width/2;
+    const dy = e.clientY - r.top  - r.height/2;
+    gsap.to(btn, { x: dx * 0.25, y: dy * 0.25, duration: 0.3, ease: 'power2.out' });
+  });
+  btn.addEventListener('mouseleave', ()=>{
+    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+  });
+});
+
+/* RIPPLE EFFECT */
+document.querySelectorAll('.btn-primary, .btn-buy').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height) * 2;
+    const rip  = document.createElement('span');
+    rip.className = 'ripple';
+    rip.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size/2}px;top:${e.clientY - r.top - size/2}px;`;
+    btn.appendChild(rip);
+    setTimeout(()=>rip.remove(), 500);
+  });
+});
+
+/* SHIMMER TRIGGER */
+document.querySelectorAll('h1 em').forEach(el=>{
+  el.classList.add('shimmer-text');
+});
+</script>
+</body>
+</html>
